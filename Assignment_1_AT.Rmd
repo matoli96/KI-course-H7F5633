@@ -1,0 +1,367 @@
+# Task 1
+## 2.a. What is the medically relevant insight from the article?
+This article highlights the strengths and weaknesses of different in situ gene expression profiling methods. These methods are used to analyze gene expression while preserving spatial information. From my perspective, as a medical doctor and a PhD student working with breast cancer, this article is medically relevant due to its potential applications in cancer research and precision medicine. In oncology, it is important to provide spatial insights into gene expression in tissues in order to improve biomarker discovery, treatment selection or even response to treatment. For example, errors in sensitivity and specificity (false positives) can lead to misleading conclusions that can have a negative impact on cancer diagnosis and therapy selection. Since this article compares different in situ gene expression profiling methods and introduces better ways to assess and improve their accuracy, this could help with the selection of the most appropriate technique not only for research applications but also for potential implementation in the clinic. 
+
+## 2.b. Which genomics technology/technologies were used?
+The study compares six different in situ gene expression profiling technologies using mouse brain datasets. Those genomic technologies include: Xenium (10x Genomics), MERSCOPE (Vizgen), and Molecular Cartography (Resolve Biosciences), which are commercial technologies.  Additionally, the following academic methods were used:  MERFISH, STARmap PLUS, and EEL FISH. 
+
+## 3.a List and explain at least three questions/hypotheses that extend the analysis presented in the paper.
+This study used publicly available accessible mouse brain datasets, so one question could be on how these technologies optimized for the mouse tissue analysis would perform if human samples were used.  One way to extend the analysis presented in the article would be to test and compare these methods on human tissues, since human tissue is more complex. 
+Another question could be on whether artificial intelligence and deep learning could improve molecular assignment and cell segmentation. For example, AI-driven image analysis could be used to distinguish true biological signals from technical noise and provide more accurate cell identification. 
+Lastly, another extension of this article could be to explore whether the comparative analysis of multiplexed in situ gene expression profiling technologies could be used to further compare and examine spatial relationships between cells. For example, this could be particularly useful when studying the tumor microenvironment (TME) where the interaction between tumor cells, immune and stromal cells are important for cancer biology. 
+
+## 3.b Devise a computational analysis strategy for (some of) the listed questions under 3a.
+I am not sure that I can provide a full computational analysis, but I could describe my thoughts behind every question from 3a. 
+In order to compare the different multiplex profiling in situ technologies in mouse and human tissues, we should first obtain a publicly available spatial transcriptomics dataset for human samples. Then, we can apply the study’s benchmarking metrics (MECR, sensitivity) to assess consistency. 
+For this question, we could train a deep learning model to segment cells in spatial transcriptomics images. We could use manually annotated datasets as training data. Then, we can compare model performance against the current segmentation techniques used in the article.
+I would like to propose a potential analysis for question 3 regarding the TME but I do not know how I could proceed with this type of analysis. 
+
+#Task 3
+```{r}
+library(dplyr)
+library(remotes)
+library(airway)
+library(tidybiology)
+```
+
+#Task 4
+```{r}
+##1:Square root of 10
+sqrt(10)
+cat("1.Square root of 10:",sqrt(10), "\n")
+##2:Log of 32 to the base of 2
+log2(32)
+cat("2.Log of 32 to the base of 2: ",log2(32), "\n")
+##3:Sum of numbers from 1 to 1000
+sum(1:1000)
+cat("3.Sum of numbers from 1 to 1000:", sum(1:1000), "\n")
+##4:Sum of even numbers from 2 to 1000
+sum(seq(2, 1000, by = 2))
+cat("4.Sum of even numbers from 2 to 1000:", sum(seq(2, 1000, by = 2)), "\n")
+##5:Number of pairwise comparisons for 100 genes
+choose(100, 2)
+cat("5.Number of pairwise comparisons for 100 genes:",choose(100, 2),"\n")
+##6:Number of ways to arrange 100 genes in triples
+factorial(100) / factorial(100 - 3)
+cat("6.Number of ways to arrange 100 genes in triples:",factorial(100) / factorial(100 - 3),"\n")
+```
+
+#Task 5
+```{r}
+##1: R internal CO2 dataset
+data(CO2)
+##2:Describe briefly the content of the CO2 dataset 
+help(CO2)
+```
+
+##2: Carbon Dioxide Uptake in Grass Plants 
+
+Description 
+The CO2 data frame has 84 rows and 5 columns of data from an experiment on the cold tolerance of the grass species Echinochloa crus-galli.
+
+Usage 
+CO2 
+
+Format 
+An object of class c("nfnGroupedData", "nfGroupedData", "groupedData", "data.frame") containing the following columns:  
+
+Plant 
+an ordered factor with levels Qn1 < Qn2 < Qn3 < ... < Mc1 giving a unique identifier for each  plant. 
+
+Type 
+a factor with levels Quebec Mississippi giving the origin of the plant
+
+Treatment 
+a factor with levels nonchilled chilled  
+
+conc 
+a numeric vector of ambient carbon dioxide concentrations (mL/L). 
+
+uptake 
+a numeric vector of carbon dioxide uptake rates ( 𝜇 mol / 𝑚 2 μmol/m  2   sec).
+
+##3: average and median CO2 uptake of the plants from Quebec and Mississippi
+```{r}
+###Average and median CO2 uptake for Quebec plants
+mean(CO2$uptake[CO2$Type == "Quebec"])  #this creates a vector and each row where Type is "Quebec" gets TRUE, and "Mississippi" gets FALSE
+cat("Average CO2 uptake for Quebec plants:",mean(CO2$uptake[CO2$Type == "Quebec"]),"\n")
+median(CO2$uptake[CO2$Type == "Quebec"])
+cat("Median CO2 uptake for Quebec plants:",median(CO2$uptake[CO2$Type == "Quebec"]),"\n")
+
+###Average and median CO2 uptake for Mississippi plants
+mean(CO2$uptake[CO2$Type == "Mississippi"])
+cat("Average CO2 uptake for Mississipi plants:",mean(CO2$uptake[CO2$Type == "Mississippi"]),"\n")
+median(CO2$uptake[CO2$Type == "Mississippi"])
+cat("Median CO2 uptake for Mississipi plants:",median(CO2$uptake[CO2$Type == "Mississippi"]),"\n")
+```
+
+##4: Optional
+
+#Task 6
+```{r}
+mean_median_ratio <- function(vec) {
+  return(mean(vec, na.rm = TRUE) / median(vec, na.rm = TRUE)) # calculate mean and median while ignoring na values and return their ratio
+}
+
+##2:ignore the lowest and the highest value from a given vector and calculate the mean
+trimmed_mean <- function(vec) {
+  vec_trimmed <- vec[vec != min(vec, na.rm = TRUE)]
+  vec_trimmed <- vec_trimmed[vec_trimmed != max(vec_trimmed, na.rm = TRUE)]
+  return(mean(vec_trimmed, na.rm = TRUE))}
+```
+
+##3:Pipping-explanation of why, how, and when not to use pipes.
+Pipes in R make the code easier to read by passing data from one function to another in a clear, left-to-right way, avoiding messy nested functions. They are great for organizing analysis steps but should be avoided in loops or when functions depend on the current environment.
+
+##4: Apply-family of functions (apply, lapply, sapply etc.)-why they could be useful in my work.
+The apply family in R (apply(), lapply(), sapply(), tapply()) simplifies repetitive calculations on data. apply() works on rows/columns, lapply() applies functions to lists, sapply() simplifies output, and tapply() groups data. They reduce loops, making analyses faster and cleaner.
+The apply family has helped me efficiently apply functions to subsets of my data. I usually use it to process data frames, lists, or vectors—like extracting patient IDs from filenames.
+
+#Task 7
+```{r}
+library(dplyr)
+library(remotes)
+library(airway)
+```
+
+```{r}
+getwd()
+setwd("/Users/maria.angeliki.toli/Downloads") 
+df <- read.csv("magic_guys.csv")
+head(df)
+```
+
+##7.1
+```{r}
+
+library(ggplot2)
+
+# Histogram with 30 bins per species
+ggplot(df, aes(y = length, fill = species)) +
+  geom_histogram(bins = 30)
+
+ggsave("histogram_30_bins.png")
+
+# Histogram with 50 bins
+c <- ggplot(df, aes(length, fill = species)) + 
+  geom_histogram(bins = 50)
+c  # Display plot
+
+ggsave("histogram_50_bins.png", c)
+
+# Boxplot for species
+ggplot(df, aes(x = species, y = length, fill = species)) +
+  geom_boxplot()
+
+ggsave("boxplot_species.png")
+
+```
+##7.1
+PDF (Portable Document Format) and SVG (Scalable Vector Graphics) are vector-based.Perfect for publications because they can be resized without losing quality.PNG (Portable Network Graphics) is a raster (pixel-based) format.Best for presentations, and documents where high resolution is needed.If you zoom in too much, you will start seeing pixelation. 
+
+##7.2
+```{r}
+# Load the microarray data
+microarray_data <- read.delim("microarray_data.tab")
+
+# Display the first few rows
+head(microarray_data)
+
+# Get the size of the matrix (rows and columns)
+dim(microarray_data)
+#The dataset has 553 rows and 1000 columns
+
+# Count missing values per gene (row-wise)
+missing_values_per_gene <- rowSums(is.na(microarray_data))
+
+# Visualize missing values
+hist(missing_values_per_gene, breaks = 30, col = "blue", main = "Distribution of Missing Values in Genes",
+     xlab = "Number of Missing Values per Gene", ylab = "Frequency")
+
+ggsave("missing_values_histogram.png")
+```
+
+```{r}
+# Define thresholds for missing values
+thresholds <- c(0.1, 0.2, 0.5)
+
+# Calculate number of missing values per gene as a percentage
+num_columns <- ncol(microarray_data)
+missing_percentage_per_gene <- missing_values_per_gene / num_columns
+
+# Find genes exceeding each threshold
+genes_above_thresholds <- sapply(thresholds, function(thresh) sum(missing_percentage_per_gene > thresh))
+names(genes_above_thresholds) <- paste0(">", thresholds * 100, "%")
+print(genes_above_thresholds)
+```
+
+```{r}
+###I am not quite sure about this one###
+# Impute missing values with the mean expression value for each gene
+library(dplyr)
+microarray_imputed_data <- microarray_data
+microarray_imputed_data <- microarray_data %>%
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+# Identify genes with all values missing
+fully_missing_genes <- sum(rowSums(is.na(microarray_data)) == num_columns)
+cat("Genes with all missing values:", fully_missing_genes, "\n")
+
+# Fill any remaining NaN values with zero (if a row was entirely NaN, mean would still be NaN)
+microarray_imputed_data[is.na(microarray_imputed_data)] <- 0
+
+# Verify that there are no missing values left
+missing_after_final_imputation <- sum(is.na(microarray_imputed_data))
+cat("Remaining missing values after imputation:", missing_after_final_imputation, "\n")
+```
+
+#7.3
+```{r}
+#Summary statistics
+summary(CO2)
+
+#Boxplot of CO2 uptake by plant type (Quebec vs Mississippi)
+ggplot(CO2, aes(x=Type, y=uptake, fill=Type)) +
+  geom_boxplot() +
+  labs(title="CO2 uptake by plant type", x="Plant type",
+       y="CO2 uptake")
+ggsave("co2byplant_boxplot.png")
+#Quebec has higher uptake values compared to Mississippi
+
+#Boxplot of CO2 uptake across different treatment conditions (chilled vs nochilled): 
+ggplot(CO2, aes(x = Treatment, y = uptake, fill = Treatment)) +
+  geom_boxplot() +
+  labs(title = "CO2 uptake by treatment", x = "Treatment", y = "CO2 uptake")
+ggsave("co2_boxplot.png")
+
+#Chilled treatment has lower uptake values compared to nonchilled but  there is some overlap between the two groups, making the difference less profound compared to the uptake per plant type.
+
+#Faceted scatter plot by plant type and treatment shows how both treatment and plant type impact CO2 uptake trends.
+ggplot(CO2, aes(x = conc, y = uptake, color = Treatment)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(Type ~ .) +
+  labs(title = "CO2 uptake by plant type and treatment", x = "CO2 concentration", y = "CO2 uptake")
+ggsave("co2_facet_plot.png")
+
+#Chilled treatment has lower impact on uptake values compared to nonchilled treatmnet for Mississippi rather than Quebec.
+```
+
+#Task 8
+```{r}
+##8.1
+library(tidybiology)
+library(dplyr)
+
+### Load the chromosome dataset
+data("chromosome")
+head(chromosome)
+
+### Load the proteins dataset
+data("proteins")
+head(proteins)
+```
+
+```{r}
+##8.a: Summary statistics (mean, median and maximum) from the ‘chromosome’ data: variations, protein coding genes, miRNAs.
+summary_stats <- chromosome %>% 
+  
+  summarise(
+    mean_variations = mean(variations, na.rm = TRUE),
+    median_variations = median(variations, na.rm = TRUE),
+    max_variations = max(variations, na.rm = TRUE),
+    
+    mean_protein_coding = mean(protein_codinggenes, na.rm = TRUE),
+    median_protein_coding = median(protein_codinggenes, na.rm = TRUE),
+    max_protein_coding = max(protein_codinggenes, na.rm = TRUE),
+    
+    mean_miRNAs = mean(mi_rna, na.rm = TRUE),
+    median_miRNAs = median(mi_rna, na.rm = TRUE),
+    max_miRNAs = max(mi_rna, na.rm = TRUE)
+  )
+
+print(summary_stats)
+
+```
+
+```{r}
+##8.b: Visualize chromosome size distribution
+library(ggplot2)
+ggplot(chromosome, aes(x = length_mm)) +
+  geom_histogram(bins = 20, fill = "yellow", color = "blue", alpha = 0.7) +
+  labs(title = "Chromosome Size Distribution", x = "Chromosome Size", y = "Count") +
+  theme_minimal()
+ggsave("chromosome_size_distribution.png")
+
+###There is no specific distribution 
+```
+
+```{r}
+##8.c: Does the number of protein coding genes or miRNAs correlate with the length of the chromosome? Make two separate plots 
+
+### Scatter plot: Protein coding genes vs. Chromosome size
+ggplot(chromosome, aes(x = length_mm, y = protein_codinggenes)) +
+  geom_point(color = "blue", alpha = 0.7) +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "Protein Coding Genes vs. Chromosome Size", x = "Chromosome Size", y = "Protein Coding Genes") +
+  theme_minimal()
+ggsave("protein_coding_vs_size.png")
+
+###As chromosome size increases, the number of protein coding genes also increases with a few outliers (positive correlation between chromosome size and the number of protein coding genes)
+
+### Scatter plot: miRNAs vs. Chromosome size
+ggplot(chromosome, aes(x = length_mm, y = mi_rna)) +
+  geom_point(color = "green", alpha = 0.7) +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "miRNAs vs. Chromosome Size", x = "Chromosome Size", y = "miRNAs") +
+  theme_minimal()
+ggsave("miRNAs_vs_size.png")
+
+###As chromosome size increases, the number of miRNAs also increases with a few outliers (positive correlation between chromosome size and the number of miRNAs)
+```
+
+```{r}
+##8.d:Same...for the ‘proteins’ data variables length
+# Extract summary statistics for length and mass
+protein_summary <- proteins %>% 
+  summarise(
+    mean_length = mean(length, na.rm = TRUE),
+    median_length = median(length, na.rm = TRUE),
+    max_length = max(length, na.rm = TRUE),
+    
+    mean_mass = mean(mass, na.rm = TRUE),
+    median_mass = median(mass, na.rm = TRUE),
+    max_mass = max(mass, na.rm = TRUE)
+  )
+
+# Print summary statistics
+print(protein_summary)
+
+# Histogram of protein lengths
+ggplot(proteins, aes(x = length)) +
+  geom_histogram(binwidth = 50, fill = "purple", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Protein Lengths", x = "Protein Length", y = "Count") +
+  theme_minimal()
+ggsave("protein_length_distribution.png")
+#Right-skewed distribution
+
+# Histogram of protein masses
+ggplot(proteins, aes(x = mass)) +
+  geom_histogram(binwidth = 50, fill = "orange", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Protein Masses", x = "Protein Mass", y = "Count") +
+  theme_minimal()
+ggsave("protein_mass_distribution.png")
+#Right-skewed distribution
+
+# Scatter plot: Protein length vs. Mass
+ggplot(proteins, aes(x = length, y = mass, color = length)) +
+  geom_point(alpha = 0.6, size = 3) +
+  geom_smooth(method = "lm", color = "black", se = FALSE) +
+  scale_color_gradient(low = "blue", high = "red") +
+  labs(title = "Protein Length vs. Mass", x = "Protein Length", y = "Protein Mass") +
+  theme_classic()
+ggsave("protein_length_vs_mass.png")
+#Positive correlation between protein length and protein mass (linear relationship) with a few outliers
+```
+
+
