@@ -1,3 +1,8 @@
+title: "Assignment_1_AT"
+author: "Maria Angeliki Toli"
+date: "2025-03-17"
+output:html_notebook
+
 # Task 1
 ## 2.a. What is the medically relevant insight from the article?
 This article highlights the strengths and weaknesses of different in situ gene expression profiling methods. These methods are used to analyze gene expression while preserving spatial information. From my perspective, as a medical doctor and a PhD student working with breast cancer, this article is medically relevant due to its potential applications in cancer research and precision medicine. In oncology, it is important to provide spatial insights into gene expression in tissues in order to improve biomarker discovery, treatment selection or even response to treatment. For example, errors in sensitivity and specificity (false positives) can lead to misleading conclusions that can have a negative impact on cancer diagnosis and therapy selection. Since this article compares different in situ gene expression profiling methods and introduces better ways to assess and improve their accuracy, this could help with the selection of the most appropriate technique not only for research applications but also for potential implementation in the clinic. 
